@@ -10,10 +10,12 @@ import org.junit.Test;
 
 public class smokeTest {
 	MyClass my;
+	Time time;
 	
 	@Before
 	public void setUp() {
-		my = new MyClass();
+		time = new Time();
+		my = new MyClass(time);
 	}
 
 	@Test
@@ -30,6 +32,6 @@ public class smokeTest {
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		
-		assertEquals(futureDt.format(formatter), Time.getFutureTime(actualDt, 120));
+		assertEquals(futureDt.format(formatter), time.getFutureTime(actualDt, 120));
 	}
 }
