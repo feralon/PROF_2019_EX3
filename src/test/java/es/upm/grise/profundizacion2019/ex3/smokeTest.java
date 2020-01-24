@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 
 import org.junit.Before;
 import org.junit.Test;
+import static org.mockito.Mockito.*;
 
 public class smokeTest {
 	MyClass my;
@@ -33,5 +34,17 @@ public class smokeTest {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		
 		assertEquals(futureDt.format(formatter), time.getFutureTime(actualDt, 120));
+	}
+	
+	@Test
+	public void WhenCallingMyClassNextTimeThenMyClassNexTimeIsOnlyInvokedOnce()
+	{
+		LocalDateTime ld = LocalDateTime.now();
+		Time timeMocked = mock(Time.class);
+		MyClass m = new MyClass(ld, timeMocked);
+		
+		m.nextTime(120);
+		
+		verify(timeMocked, times(1)).getFutureTime(ld, 120);
 	}
 }
